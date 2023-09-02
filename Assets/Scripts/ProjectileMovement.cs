@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
+    GameManager gameManager;
+
     public float delay;
     public float speed;
 
@@ -11,6 +13,8 @@ public class ProjectileMovement : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.Find("GameController").GetComponent<GameManager>();
+
         if (transform.position.x < 0)
         {
             direction = 1;
@@ -45,6 +49,14 @@ public class ProjectileMovement : MonoBehaviour
             
             if (collision.gameObject.GetComponent<Defender>().hitPoints <= 0)
             {
+                gameManager.defenderNames.Add(collision.gameObject.GetComponent<Defender>().defenderName);
+                
+                if (!gameManager.deadDefenderNames.Contains(collision.gameObject.GetComponent<Defender>().defenderName))
+                {
+                    gameManager.deadDefenderNames.Add(collision.gameObject.GetComponent<Defender>().defenderName);
+                }
+
+                gameManager.defenders.Remove(collision.gameObject.GetComponent<Defender>());
                 Destroy(collision.gameObject);
             }
             

@@ -3,22 +3,31 @@ using UnityEngine;
 public class Defender : MonoBehaviour
 {
     public GameObject player;
-    public float floatAmplitude = 0.5f;
-    public float floatSpeed = 1.0f;
+
+    public string defenderName;
+
+    public Sprite[] defenderSprites;
+
+    public float placement;
+    public int hitPoints;
+
+    public float floatAmplitude;
+    public float floatSpeed;
 
     private Vector3 initialLocalPosition;
     private float time = 0.0f;
 
-    public int hitPoints;
-
     void Start()
     {
+        floatAmplitude = 1.0f;
+        floatSpeed = 2.0f;
+
         player = GameObject.Find("Player");
         transform.parent = player.transform;
 
-        hitPoints = 10;
+        hitPoints = 1;
 
-        transform.localPosition = new Vector3(1.0f, 0.0f, 0.0f);
+        transform.localPosition = new Vector3(placement, 0.2f, 0.0f);
 
         initialLocalPosition = transform.localPosition;
     }

@@ -13,9 +13,15 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (collision.collider.tag == "Projectile")
         {
-            gameManager.deathCount += 1;
+            gameManager.remainingLives -= 1;
+            if (gameManager.remainingLives <= 0)
+            {
+                gameManager.DonDonationEvent();
+            }
             gameManager.RespawnPlayer();
-            
+
+            gameManager.defenders.Clear();
+
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
