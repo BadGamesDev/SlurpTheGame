@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    GameManager gameManager;
+
     public Rigidbody2D playerBody;
 
     float horizontal;
@@ -10,6 +12,11 @@ public class PlayerControls : MonoBehaviour
 
     public float runSpeed = 10.0f;
 
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameController").GetComponent<GameManager>();
+    }
+    
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -18,12 +25,15 @@ public class PlayerControls : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (horizontal != 0 && vertical != 0)
+        if (!gameManager.gamePaused)
         {
-            horizontal *= moveLimiter;
-            vertical *= moveLimiter;
-        }
+            if (horizontal != 0 && vertical != 0)
+            {
+                horizontal *= moveLimiter;
+                vertical *= moveLimiter;
+            }
 
-        playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+            playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        }
     }
 }

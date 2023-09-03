@@ -6,6 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public UIManager uiManager;
+    public CameraShake cameraShake;
 
     public GameObject playerPrefab;
     public GameObject defenderPrefab;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     public float defenderCooldown;
 
     public long remainingLives;
+
+    public bool gamePaused;
 
     public List<string> defenderNames = new List<string>
     {
@@ -62,7 +65,33 @@ public class GameManager : MonoBehaviour
 
     public void DonDonationEvent()
     {
-        remainingLives += 300000000000000;
+        StartCoroutine(OpenDonStepsWithDelay());
+    }
+
+    public IEnumerator<UnityEngine.WaitForSeconds> OpenDonStepsWithDelay()
+    {
+        gamePaused = true;
+
+        yield return new WaitForSeconds(2.0f); // Wait for 3 seconds before starting
+        uiManager.OpenDonPt1();
+
+        yield return new WaitForSeconds(4.5f); // Wait for 3 seconds
+        uiManager.OpenDonPt2();
+
+        yield return new WaitForSeconds(3.5f); // Wait for 3 seconds
+        uiManager.OpenDonPt3();
+
+        yield return new WaitForSeconds(3.5f); // Wait for 3 seconds
+        uiManager.OpenDonPt4();
+        cameraShake.ShakeCamera(5f, .1f);
+
+        yield return new WaitForSeconds(8.0f);
+        uiManager.CloseDons();
+
+        remainingLives += 100000000000000;
+        uiManager.easyModeButton.SetActive(true);
+
+        gamePaused = false;
     }
 
     public void SpawnDefender()
