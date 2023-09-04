@@ -25,7 +25,7 @@ public class Defender : MonoBehaviour
         player = GameObject.Find("Player");
         transform.parent = player.transform;
 
-        hitPoints = 1;
+        hitPoints = 3;
 
         transform.localPosition = new Vector3(placement, 0.2f, 0.0f);
 

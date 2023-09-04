@@ -25,6 +25,7 @@ public class PlayerInteractions : MonoBehaviour
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
+                gameManager.defenderNames.Add(child.gameObject.GetComponent<Defender>().defenderName);
             }
             Destroy(gameObject);
         }

@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioManager audioManager;
     public UIManager uiManager;
     public CameraShake cameraShake;
 
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     public List<string> defenderNames = new List<string>
     {
         "Cndk99", "OneViolence", "Cobalt_Velvet", "Uber_Markus", "bigfishguy17", "AGiraffeTRH", "JackedRussell", "Digi63", "Rejid",
-        "redzepper", "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69", "pharophs", "Leofwine", "tictictoby", "Relaxitsjules"
+        "redzepper", "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69", "pharophs", "Leofwine", "tictictoby", "Relaxitsjules", "JiveForceOne"
     };
 
     public List<string> deadDefenderNames = new List<string>
@@ -34,11 +35,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         uiManager.lifeCountText.text = "Slurps left:" + remainingLives.ToString();
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ActivateEasyMode();
-        }
 
         SpawnDefender();
     }
@@ -48,7 +44,7 @@ public class GameManager : MonoBehaviour
         GameObject newPlayer = Instantiate(playerPrefab, new Vector2(0,-8), Quaternion.identity);
         newPlayer.name = "Player";
         GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>().Follow = newPlayer.transform;
-
+        defenderRemainingCooldown = 1.5f;
     }
 
     public void ActivateEasyMode()
@@ -77,15 +73,17 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(4.5f); // Wait for 3 seconds
         uiManager.OpenDonPt2();
+        audioManager.PlayTwitchAlert();
 
-        yield return new WaitForSeconds(3.5f); // Wait for 3 seconds
+        yield return new WaitForSeconds(2.5f); // Wait for 3 seconds
         uiManager.OpenDonPt3();
 
-        yield return new WaitForSeconds(3.5f); // Wait for 3 seconds
+        yield return new WaitForSeconds(3.0f); // Wait for 3 seconds
         uiManager.OpenDonPt4();
-        cameraShake.ShakeCamera(5f, .1f);
+        audioManager.PlayJohnCena();
 
-        yield return new WaitForSeconds(8.0f);
+
+        yield return new WaitForSeconds(10.0f);
         uiManager.CloseDons();
 
         remainingLives += 100000000000000;
