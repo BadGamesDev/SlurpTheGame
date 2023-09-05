@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public AudioManager audioManager;
     public UIManager uiManager;
-    public CameraShake cameraShake;
 
     public GameObject playerPrefab;
     public GameObject defenderPrefab;
@@ -23,8 +22,11 @@ public class GameManager : MonoBehaviour
 
     public List<string> defenderNames = new List<string>
     {
-        "Cndk99", "OneViolence", "Cobalt_Velvet", "Uber_Markus", "bigfishguy17", "AGiraffeTRH", "JackedRussell", "Digi63", "Rejid",
-        "redzepper", "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69", "pharophs", "Leofwine", "tictictoby", "Relaxitsjules", "JiveForceOne"
+        "Cndk99", "OneViolence", "Cobalt_Velvet", "Uber_Markus", "bigfishguy17", 
+        "AGiraffeTRH", "JackedRussell", "Digi63", "Rejid", "redzepper", 
+        "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69", 
+        "pharophs", "Leofwine", "tictictoby", "Relaxitsjules", "JiveForceOne",
+        "ANT3_CLIMACUS", "Kirbomas1",
     };
 
     public List<string> deadDefenderNames = new List<string>
@@ -50,13 +52,13 @@ public class GameManager : MonoBehaviour
     public void ActivateEasyMode()
     {
         targetDefenderCount = 2;
-        defenderCooldown = 5;
+        defenderCooldown = 4.5f;
     }
 
     public void ActivateVeryEasyMode()
     {
         targetDefenderCount = 4;
-        defenderCooldown = 3.5f;
+        defenderCooldown = 3.0f;
     }
 
     public void DonDonationEvent()
@@ -67,18 +69,20 @@ public class GameManager : MonoBehaviour
     public IEnumerator<UnityEngine.WaitForSeconds> OpenDonStepsWithDelay()
     {
         gamePaused = true;
+        audioManager.PauseUltimateShowdown();
+        audioManager.PlayRecordScratch();
 
-        yield return new WaitForSeconds(2.0f); // Wait for 3 seconds before starting
+        yield return new WaitForSeconds(2.0f);
         uiManager.OpenDonPt1();
 
-        yield return new WaitForSeconds(4.5f); // Wait for 3 seconds
+        yield return new WaitForSeconds(4.5f);
         uiManager.OpenDonPt2();
         audioManager.PlayTwitchAlert();
 
-        yield return new WaitForSeconds(2.5f); // Wait for 3 seconds
+        yield return new WaitForSeconds(2.5f);
         uiManager.OpenDonPt3();
 
-        yield return new WaitForSeconds(3.0f); // Wait for 3 seconds
+        yield return new WaitForSeconds(3.0f);
         uiManager.OpenDonPt4();
         audioManager.PlayJohnCena();
 
@@ -90,6 +94,8 @@ public class GameManager : MonoBehaviour
         uiManager.easyModeButton.SetActive(true);
 
         gamePaused = false;
+        yield return new WaitForSeconds(2.0f);
+        audioManager.PlayUltimateShowdown();
     }
 
     public void SpawnDefender()

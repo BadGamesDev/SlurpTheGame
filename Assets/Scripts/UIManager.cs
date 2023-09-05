@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     public GameObject donPt3;
     public GameObject donPt4;
 
+    public GameObject finalPanel;
+
     public TMP_Text donPt4Text;
 
     public GameObject veryEasy;
@@ -173,5 +175,15 @@ public class UIManager : MonoBehaviour
                 donPt4Text.UpdateGeometry(meshInfo.mesh, x);
             }
         }
+    }
+
+    public void FinalEvent()
+    {
+
+    }
+
+    public void NeverGonnagiveYouUp()
+    {
+        Application.OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley");
     }
 }
