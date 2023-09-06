@@ -18,7 +18,6 @@ public class PlayerInteractions : MonoBehaviour
             {
                 gameManager.DonDonationEvent();
             }
-            gameManager.RespawnPlayer();
 
             gameManager.defenders.Clear();
 
@@ -28,6 +27,10 @@ public class PlayerInteractions : MonoBehaviour
                 Destroy(child.gameObject);
             }
             Destroy(gameObject);
+
+            gameManager.RespawnPlayer();
+
+
         }
     }
 }

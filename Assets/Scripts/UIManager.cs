@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject easyModeButton;
     public GameObject veryEasyModeButton;
+    public GameObject extremelyEasyModeButton;
 
     public GameObject surveyPt1;
     public GameObject surveyPt2;
@@ -27,6 +28,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text donPt4Text;
 
     public GameObject veryEasy;
+    public GameObject extremelyEasy;
 
     public TMP_Text wrongInputWarning;
 
@@ -108,6 +110,19 @@ public class UIManager : MonoBehaviour
         gameManager.ActivateVeryEasyMode();
         veryEasy.SetActive(false);
         veryEasyModeButton.SetActive(false);
+        extremelyEasyModeButton.SetActive(true);
+    }
+
+    public void OpenExtremelyEasy()
+    {
+        extremelyEasy.SetActive(true);
+    }
+
+    public void CloseExtremelyEasyMessage()
+    {
+        gameManager.ActivateExtremelyEasyMode();
+        extremelyEasy.SetActive(false);
+        extremelyEasyModeButton.SetActive(false);
     }
 
     public void CloseSurveys()

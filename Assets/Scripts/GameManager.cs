@@ -20,11 +20,14 @@ public class GameManager : MonoBehaviour
 
     public bool gamePaused;
 
+    public int defenderBonusHP;
+    public float defenderBonusSize;
+
     public List<string> defenderNames = new List<string>
     {
-        "Cndk99", "OneViolence", "Cobalt_Velvet", "Uber_Markus", "bigfishguy17", 
-        "AGiraffeTRH", "JackedRussell", "Digi63", "Rejid", "redzepper", 
-        "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69", 
+        "Cndk99", "OneViolence", "Cobalt_Velvet", "Uber_Markus", "bigfishguy17",
+        "AGiraffeTRH", "JackedRussell", "Digi63", "Rejid", "redzepper",
+        "gold_comedy", "cadrethree", "itsAaMee", "GetBooped", "punknblack69",
         "pharophs", "Leofwine", "tictictoby", "Relaxitsjules", "JiveForceOne",
         "ANT3_CLIMACUS", "Kirbomas1",
     };
@@ -59,6 +62,20 @@ public class GameManager : MonoBehaviour
     {
         targetDefenderCount = 4;
         defenderCooldown = 3.0f;
+    }
+
+    public void ActivateExtremelyEasyMode()
+    {
+        targetDefenderCount = 4;
+        defenderCooldown = 3.0f;
+        defenderBonusHP = 5;
+        defenderBonusSize = 1.0f;
+
+        foreach (Defender defender in defenders)
+        {
+            defenderNames.Add(defender.defenderName);
+            Destroy(defender.gameObject);
+        }
     }
 
     public void DonDonationEvent()
@@ -108,6 +125,11 @@ public class GameManager : MonoBehaviour
             {
                 List<float> availablePlacements = new List<float> { 1.5f, -1.5f, 3.0f, -3.0f };
 
+                if (defenderBonusSize != 0)
+                {
+                    availablePlacements = new List<float> { 1.5f + defenderBonusSize, -1.5f - defenderBonusSize, 3.0f + defenderBonusSize * 2, -3.0f - defenderBonusSize * 2};
+                }
+                
                 foreach (Defender defender in defenders)
                 {
                     if (availablePlacements.Contains(defender.placement))
@@ -117,14 +139,15 @@ public class GameManager : MonoBehaviour
                 }
                 
                 GameObject newDefender = Instantiate(defenderPrefab, new Vector2(0, 0), Quaternion.identity);
+                newDefender.transform.localScale = newDefender.transform.localScale * (1 + defenderBonusSize);
                 Defender defenderScript = newDefender.GetComponent<Defender>();
                 defenderScript.placement = availablePlacements[0];
-                
+
                 if (defenderScript.placement < 0)
                 {
                     newDefender.GetComponent<SpriteRenderer>().flipX = true;
                 }
-                
+
                 string newName = defenderNames[Random.Range(0, defenderNames.Count - 1)];
                 defenderScript.defenderName = newName;
                 newDefender.GetComponentInChildren<TMP_Text>().text = newName;
