@@ -48,6 +48,7 @@ public class Defender : MonoBehaviour
         if (collision.collider.tag == "ClosingWall")
         {
             gameManager.defenders.Remove(this);
+            gameManager.defenderNames.Add(defenderName);
             Destroy(gameObject);
         }
     }

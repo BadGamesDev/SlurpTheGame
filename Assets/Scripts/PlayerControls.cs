@@ -8,7 +8,6 @@ public class PlayerControls : MonoBehaviour
 
     float horizontal;
     float vertical;
-    float moveLimiter = 0.7f;
 
     public float runSpeed = 10.0f;
 
@@ -27,13 +26,8 @@ public class PlayerControls : MonoBehaviour
     {
         if (!gameManager.gamePaused)
         {
-            if (horizontal != 0 && vertical != 0)
-            {
-                horizontal *= moveLimiter;
-                vertical *= moveLimiter;
-            }
-
-            playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+            Vector2 moveInput = new Vector2(horizontal, vertical).normalized;
+            playerBody.velocity = moveInput * runSpeed;
         }
     }
 }

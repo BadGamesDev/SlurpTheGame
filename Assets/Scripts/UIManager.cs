@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -110,6 +107,7 @@ public class UIManager : MonoBehaviour
     {
         gameManager.ActivateVeryEasyMode();
         veryEasy.SetActive(false);
+        veryEasyModeButton.SetActive(false);
     }
 
     public void CloseSurveys()
@@ -168,18 +166,24 @@ public class UIManager : MonoBehaviour
                 verts[charInfo.vertexIndex + j] = orig + new Vector3(0, Mathf.Sin(Time.time * 2f + orig.x * 0.01f) * 10f, 0);
             }
 
+            Color newColor = Color.Lerp(Color.red, Color.blue, Mathf.PingPong(Time.time, 1f));
+
+            var colors = textInfo.meshInfo[charInfo.materialReferenceIndex].colors32;
+            for (int j = 0; j < 4; ++j)
+            {
+                colors[charInfo.vertexIndex + j] = newColor;
+            }
+
             for (int x = 0; x < textInfo.meshInfo.Length; ++x)
             {
                 var meshInfo = textInfo.meshInfo[x];
                 meshInfo.mesh.vertices = meshInfo.vertices;
+
+                meshInfo.mesh.colors32 = colors;
+
                 donPt4Text.UpdateGeometry(meshInfo.mesh, x);
             }
         }
-    }
-
-    public void FinalEvent()
-    {
-
     }
 
     public void NeverGonnagiveYouUp()

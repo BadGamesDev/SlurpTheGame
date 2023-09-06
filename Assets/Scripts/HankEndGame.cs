@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HankEndGame : MonoBehaviour
@@ -12,7 +10,6 @@ public class HankEndGame : MonoBehaviour
         if (collision.collider.tag == "Player")
         {
             gameManager.gamePaused = true;
-            uiManager.FinalEvent();
             uiManager.finalPanel.SetActive(true);
         }
     }

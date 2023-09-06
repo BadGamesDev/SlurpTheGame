@@ -22,7 +22,7 @@ public class BorderCrossing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Collider>().CompareTag("Player") || collision.GetComponent<Collider>().CompareTag("Defender"))
+        if(collision.GetComponent<Collider2D>().CompareTag("Player") || collision.GetComponent<Collider2D>().CompareTag("Defender"))
         {
             borderCrossed = true;
         }
