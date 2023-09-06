@@ -46,9 +46,9 @@ public class GameManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        GameObject newPlayer = Instantiate(playerPrefab, new Vector2(0,-8), Quaternion.identity);
-        newPlayer.name = "Player";
-        GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>().Follow = newPlayer.transform;
+        GameObject player = GameObject.Find("Player");
+        player.transform.position = new Vector2(0, -8);
+
         defenderRemainingCooldown = 1.5f;
     }
 
@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
             defenderNames.Add(defender.defenderName);
             Destroy(defender.gameObject);
         }
+
+        defenders.Clear();
     }
 
     public void DonDonationEvent()

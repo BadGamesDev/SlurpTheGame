@@ -11,14 +11,9 @@ public class PlayerInteractions : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Projectile")
+        if (collision.collider.CompareTag("Projectile"))
         {
-            gameManager.remainingLives -= 1;
-            if (gameManager.remainingLives <= 0)
-            {
-                gameManager.DonDonationEvent();
-            }
-
+            gameManager.RespawnPlayer();
             gameManager.defenders.Clear();
 
             foreach (Transform child in transform)
@@ -26,11 +21,12 @@ public class PlayerInteractions : MonoBehaviour
                 gameManager.defenderNames.Add(child.gameObject.GetComponent<Defender>().defenderName);
                 Destroy(child.gameObject);
             }
-            Destroy(gameObject);
 
-            gameManager.RespawnPlayer();
-
-
+            gameManager.remainingLives -= 1;
+            if (gameManager.remainingLives <= 0)
+            {
+                gameManager.DonDonationEvent();
+            }
         }
     }
 }

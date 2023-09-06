@@ -121,8 +121,8 @@ public class UIManager : MonoBehaviour
     public void CloseExtremelyEasyMessage()
     {
         gameManager.ActivateExtremelyEasyMode();
-        extremelyEasy.SetActive(false);
         extremelyEasyModeButton.SetActive(false);
+        extremelyEasy.SetActive(false);
     }
 
     public void CloseSurveys()

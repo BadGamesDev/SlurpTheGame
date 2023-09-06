@@ -29,5 +29,9 @@ public class PlayerControls : MonoBehaviour
             Vector2 moveInput = new Vector2(horizontal, vertical).normalized;
             playerBody.velocity = moveInput * runSpeed;
         }
+        else
+        {
+            playerBody.velocity = new Vector2 (0,0);
+        }
     }
 }
